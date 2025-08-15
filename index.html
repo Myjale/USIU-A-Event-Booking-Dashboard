@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>USIU-A Event Booking Dashboard</title>
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <img src="usiu-logo-blue.png" alt="USIU Africa logo featuring a white geometric shape on a blue background. Text reads USIU Africa and United States International University-Africa. The design is professional and welcoming, representing an academic institution." />
+    <h1>USIU-A Event Booking Dashboard</h1>
+    <nav class="stats" aria-label="Live statistics">
+      <div class="stat"><span id="statTotalBookings">0</span><label>Total Bookings</label></div>
+      <div class="stat"><span id="statUpcoming">0</span><label>Upcoming Events</label></div>
+      <div class="stat"><span id="statSeatsLeft">0</span><label>Total Seats Left</label></div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="controls" aria-label="Controls">
+      <div class="control">
+        <label for="search">Search events</label>
+        <input id="search" type="search" placeholder="Search by title or location" />
+      </div>
+      <div class="control">
+        <label for="filterCategory">Category</label>
+        <select id="filterCategory">
+          <option value="all">All</option>
+          <option value="Sports">Sports</option>
+          <option value="Culture">Culture</option>
+          <option value="Academics">Academics</option>
+          <option value="Career">Career</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="sortBy">Sort by</label>
+        <select id="sortBy">
+          <option value="dateAsc">Date ↑</option>
+          <option value="dateDesc">Date ↓</option>
+          <option value="seatsDesc">Seats left ↓</option>
+          <option value="seatsAsc">Seats left ↑</option>
+          <option value="titleAsc">Title A→Z</option>
+          <option value="titleDesc">Title Z→A</option>
+        </select>
+      </div>
+      <div class="control">
+        <button id="addSampleData" class="secondary">Reset Sample Data</button>
+        <button id="exportData" class="secondary">Export JSON</button>
+        <label class="file-btn">
+          Import JSON
+          <input id="importData" type="file" accept="application/json" />
+        </label>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Events</h2>
+      <div id="eventsGrid" class="grid"></div>
+      <p id="eventsEmpty" class="muted hidden">No events match your filters.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Bookings</h2>
+      <div class="table-wrap">
+        <table class="table" aria-label="Bookings table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Seats</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsBody"></tbody>
+        </table>
+        <p id="bookingsEmpty" class="muted">No bookings yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="bookingDialog">
+    <form id="bookingForm" method="dialog">
+      <h3 id="dialogTitle">Book Event</h3>
+      <input type="hidden" id="eventId" />
+      <div class="field">
+        <label for="studentId">Student ID</label>
+        <input id="studentId" required />
+      </div>
+      <div class="field">
+        <label for="studentName">Student Name</label>
+        <input id="studentName" required />
+      </div>
+      <div class="field">
+        <label for="seats">Seats</label>
+        <input id="seats" type="number" min="1" value="1" required />
+      </div>
+      <menu class="actions">
+        <button type="reset" id="cancelDialog" value="cancel" class="secondary">Cancel</button>
+        <button type="submit" id="confirmBooking">Confirm</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <template id="eventCardTmpl">
+    <article class="card">
+      <div class="card-head">
+        <h3 class="card-title"></h3>
+        <span class="badge"></span>
+      </div>
+      <p class="muted subtitle"></p>
+      <p class="muted location"></p>
+      <div class="progress">
+        <div class="bar"></div>
+      </div>
+      <div class="meta">
+        <span class="seats"></span>
+        <span class="date"></span>
+      </div>
+      <div class="card-actions">
+        <button class="bookBtn">Book</button>
+        <button class="detailsBtn secondary">Details</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+    <footer>
+    <p>© 2025 William Mj</p>
+    <div class="social-icons">
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733614.png" alt="Instagram"></a>
+    </div>
+  </footer>
+</body>
+</html>
